@@ -17,6 +17,9 @@ FastAPI-based glossary service with SQLite storage, validated by Pydantic, and c
 - PUT `/terms/{keyword}` — update a term (keyword and/or description)
 - DELETE `/terms/{keyword}` — remove a term
 
+<img width="1440" height="810" alt="image" src="https://github.com/user-attachments/assets/e5f1ab8d-dd58-49bf-ac93-7b93ed2c4c59" />
+
+
 Interactive docs when running the service:
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
@@ -84,6 +87,8 @@ make docker-run
 # docker build -t glossaryapi:latest .
 # docker run --rm -p 8000:8000 -v $(pwd)/glossary.db:/app/glossary.db glossaryapi:latest
 ```
+<img width="1267" height="721" alt="image" src="https://github.com/user-attachments/assets/d83fb3f8-a6e5-47a4-851c-d58c05d3e271" />
+
 
 ## Docker Compose
 ```bash
