@@ -7,3 +7,4 @@ glossary.db
 static_docs/
 .pytest_cache/
 *.pyc
+.DS_Store

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package glossary.v1;
+
+option go_package = "glossary/v1;glossaryv1";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/api/annotations.proto";
+
+message Term {
+  int32 id = 1;
+  string keyword = 2;
+  string description = 3;
+}
+
+message HealthCheckRequest {}
+message HealthCheckResponse { string status = 1; }
+
+message ListTermsRequest {}
+message ListTermsResponse { repeated Term terms = 1; }
+
+message GetTermRequest { string keyword = 1; }
+message CreateTermRequest { string keyword = 1; string description = 2; }
+
+message UpdateTermRequest {
+  string keyword = 1; // existing keyword to locate the term
+  google.protobuf.StringValue new_keyword = 2; // optional
+  google.protobuf.StringValue description = 3; // optional
+}
+
+message DeleteTermRequest { string keyword = 1; }
+
+service TermsService {
+  rpc Health(HealthCheckRequest) returns (HealthCheckResponse) {
+    option (google.api.http) = { get: "/health" };
+  }
+  rpc ListTerms(ListTermsRequest) returns (ListTermsResponse) {
+    option (google.api.http) = { get: "/terms" };
+  }
+  rpc GetTerm(GetTermRequest) returns (Term) {
+    option (google.api.http) = { get: "/terms/{keyword}" };
+  }
+  rpc CreateTerm(CreateTermRequest) returns (Term) {
+    option (google.api.http) = { post: "/terms" body: "*" };
+  }
+  rpc UpdateTerm(UpdateTermRequest) returns (Term) {
+    option (google.api.http) = { put: "/terms/{keyword}" body: "*" };
+  }
+  rpc DeleteTerm(DeleteTermRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = { delete: "/terms/{keyword}" };
+  }
+}
+
+

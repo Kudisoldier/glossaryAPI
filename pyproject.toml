@@ -8,10 +8,12 @@ authors = [
 requires-python = ">=3.10"
 readme = "README.md"
 dependencies = [
-  "fastapi>=0.115.0",
-  "uvicorn[standard]>=0.30.0",
   "sqlmodel>=0.0.21",
-  "sqlalchemy>=2.0.32"
+  "sqlalchemy>=2.0.32",
+  "grpcio>=1.64.0",
+  "grpcio-tools>=1.64.0",
+  "protobuf>=5.27.0",
+  "grpcio-reflection>=1.64.0"
 ]
 
 [project.optional-dependencies]
