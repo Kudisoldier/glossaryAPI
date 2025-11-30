@@ -21,20 +21,30 @@ help:
 	@echo "  make compose-down - stop compose"
 	@echo "  make clean        - remove venv and caches"
 
-install: $(VENV)
-	. $(VENV)/bin/activate && uv pip install -e . && uv pip install '.[dev]'
-
-$(VENV):
-	uv venv
+install:
+	uv sync --all-extras
 
 run:
-	$(VENV)/bin/uvicorn app.main:app --host $(HOST) --port $(PORT) --reload
+	uv run uvicorn app.main:app --host $(HOST) --port $(PORT) --reload
+
+run-rest:
+	uv run uvicorn app.main:app --host $(HOST) --port $(PORT) --reload
+
+run-grpc:
+	uv run python -m app.grpc_server --host $(HOST) --port 50051
+
+run-both:
+	@echo "Starting REST server on port $(PORT) and gRPC server on port 50051..."
+	@uv run uvicorn app.main:app --host $(HOST) --port $(PORT) & \
+	uv run python -m app.grpc_server --host $(HOST) --port 50051 & \
+	echo "Servers started. Press Ctrl+C to stop."; \
+	wait
 
 test:
-	$(VENV)/bin/pytest -q
+	uv run pytest -q
 
 docs:
-	$(VENV)/bin/python scripts/generate_docs.py
+	uv run python scripts/generate_docs.py
 
 docs-serve:
 	cd static_docs && python3 -m http.server $(DOCS_PORT)
@@ -52,4 +62,4 @@ compose-down:
 	docker compose down
 
 clean:
-	rm -rf $(VENV) .pytest_cache __pycache__ *.pyc
+	rm -rf .venv .pytest_cache __pycache__ *.pyc .uv

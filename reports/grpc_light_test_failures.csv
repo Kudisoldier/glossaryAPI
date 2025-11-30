@@ -1,0 +1,21 @@
+Method,Name,Error,Occurrences
+grpc,delete_term,"<_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.NOT_FOUND
+	details = ""Term not found""
+	debug_error_string = ""UNKNOWN:Error received from peer  {grpc_status:5, grpc_message:""Term not found""}""
+>",3
+grpc,get_term,"<_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.NOT_FOUND
+	details = ""Term not found""
+	debug_error_string = ""UNKNOWN:Error received from peer  {grpc_status:5, grpc_message:""Term not found""}""
+>",4
+grpc,update_term,"<_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.NOT_FOUND
+	details = ""Term not found""
+	debug_error_string = ""UNKNOWN:Error received from peer  {grpc_status:5, grpc_message:""Term not found""}""
+>",2
+grpc,get_term,"<_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.NOT_FOUND
+	details = ""Term not found""
+	debug_error_string = ""UNKNOWN:Error received from peer  {grpc_message:""Term not found"", grpc_status:5}""
+>",3

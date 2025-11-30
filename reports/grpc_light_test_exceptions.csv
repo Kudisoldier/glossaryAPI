@@ -1,0 +1,49 @@
+Count,Message,Traceback,Nodes
+2,"<_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.NOT_FOUND
+	details = ""Term not found""
+	debug_error_string = ""UNKNOWN:Error received from peer  {grpc_status:5, grpc_message:""Term not found""}""
+>","  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/locust/user/task.py"", line 355, in run
+    self.execute_next_task()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/locust/user/task.py"", line 388, in execute_next_task
+    self.execute_task(self._task_queue.popleft())
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/locust/user/task.py"", line 505, in execute_task
+    task(self.user)
+    ~~~~^^^^^^^^^^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/locustfiles/grpc_user.py"", line 126, in update_term
+    self._make_request(self.stub.UpdateTerm, request, ""update_term"")
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/locustfiles/grpc_user.py"", line 67, in _make_request
+    response = request_func(request_obj)
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/grpc/_channel.py"", line 1166, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/grpc/_channel.py"", line 996, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+",local
+7,"<_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.NOT_FOUND
+	details = ""Term not found""
+	debug_error_string = ""UNKNOWN:Error received from peer  {grpc_status:5, grpc_message:""Term not found""}""
+>","  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/locust/user/task.py"", line 355, in run
+    self.execute_next_task()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/locust/user/task.py"", line 388, in execute_next_task
+    self.execute_task(self._task_queue.popleft())
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/locust/user/task.py"", line 505, in execute_task
+    task(self.user)
+    ~~~~^^^^^^^^^^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/locustfiles/grpc_user.py"", line 100, in get_term
+    self._make_request(self.stub.GetTerm, request, ""get_term"")
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/Users/ssstpnv/projects/glossaryAPI/locustfiles/grpc_user.py"", line 67, in _make_request
+    response = request_func(request_obj)
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/grpc/_channel.py"", line 1166, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File ""/Users/ssstpnv/projects/glossaryAPI/.venv/lib/python3.13/site-packages/grpc/_channel.py"", line 996, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+",local
