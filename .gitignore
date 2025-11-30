@@ -7,4 +7,3 @@ glossary.db
 static_docs/
 .pytest_cache/
 *.pyc
-charts/
