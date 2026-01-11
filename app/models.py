@@ -21,7 +21,10 @@ class Term(SQLModel, table=True):
 	category: Optional[str] = Field(default=None, max_length=64)
 	
 	# Relationships
-	sources: List["Source"] = Relationship(back_populates="term")
+	sources: List["Source"] = Relationship(
+		back_populates="term",
+		sa_relationship_kwargs={"cascade": "all, delete-orphan"}
+	)
 	relations_from: List["TermRelation"] = Relationship(
 		back_populates="term_from",
 		sa_relationship_kwargs={

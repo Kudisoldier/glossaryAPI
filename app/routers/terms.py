@@ -72,6 +72,25 @@ def delete_term(keyword: str, session: Session = Depends(get_session)) -> None:
 	term = session.exec(select(Term).where(Term.keyword == keyword)).first()
 	if not term:
 		raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Term not found")
+	
+	# Явно удаляем связанные записи для надежности
+	from ..models import Source, TermRelation
+	
+	# Удаляем все источники термина
+	sources = session.exec(select(Source).where(Source.term_id == term.id)).all()
+	for source in sources:
+		session.delete(source)
+	
+	# Удаляем все связи, где этот термин является источником или целью
+	relations_from = session.exec(select(TermRelation).where(TermRelation.term_from_id == term.id)).all()
+	for rel in relations_from:
+		session.delete(rel)
+	
+	relations_to = session.exec(select(TermRelation).where(TermRelation.term_to_id == term.id)).all()
+	for rel in relations_to:
+		session.delete(rel)
+	
+	# Удаляем сам термин
 	session.delete(term)
 	session.commit()
 	return None
