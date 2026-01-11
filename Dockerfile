@@ -1,4 +1,12 @@
 # syntax=docker/dockerfile:1.7-labs
+FROM node:20-slim AS frontend-builder
+
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci
+COPY frontend ./
+RUN npm run build
+
 FROM python:3.11-slim AS base
 
 # Install uv (pip replacement) and build deps
@@ -11,6 +19,9 @@ COPY pyproject.toml .
 COPY README.md .
 COPY app ./app
 COPY scripts ./scripts
+
+# Copy frontend build
+COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
 # Install dependencies using uv
 RUN uv venv && . .venv/bin/activate && uv pip install -e .

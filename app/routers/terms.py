@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlmodel import Session, select
 
 from ..db import get_session
@@ -11,8 +11,14 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[TermRead])
-def list_terms(session: Session = Depends(get_session)) -> List[Term]:
-	return session.exec(select(Term).order_by(Term.keyword)).all()
+def list_terms(
+	category: Optional[str] = Query(None, description="Filter by category"),
+	session: Session = Depends(get_session)
+) -> List[Term]:
+	query = select(Term)
+	if category:
+		query = query.where(Term.category == category)
+	return session.exec(query.order_by(Term.keyword)).all()
 
 
 @router.get("/{keyword}", response_model=TermRead)
@@ -28,7 +34,11 @@ def create_term(data: TermCreate, session: Session = Depends(get_session)) -> Te
 	existing = session.exec(select(Term).where(Term.keyword == data.keyword)).first()
 	if existing:
 		raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Term already exists")
-	term = Term(keyword=data.keyword, description=data.description)
+	term = Term(
+		keyword=data.keyword,
+		description=data.description,
+		category=data.category
+	)
 	session.add(term)
 	session.commit()
 	session.refresh(term)
@@ -48,6 +58,8 @@ def update_term(keyword: str, data: TermUpdate, session: Session = Depends(get_s
 		term.keyword = data.keyword
 	if data.description is not None:
 		term.description = data.description
+	if data.category is not None:
+		term.category = data.category
 
 	session.add(term)
 	session.commit()
