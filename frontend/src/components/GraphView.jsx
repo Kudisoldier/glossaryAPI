@@ -98,13 +98,6 @@ function GraphView({ onTermSelect, terms = [] }) {
         });
         
         setLoading(false);
-        
-        // Автоматически подгоняем вид после загрузки данных
-        setTimeout(() => {
-          if (fgRef.current) {
-            fgRef.current.zoomToFit(400, 50, (node) => true);
-          }
-        }, 500);
       } catch (err) {
         console.error('Error loading graph:', err);
         setError(err.response?.data?.detail || err.message || 'Ошибка загрузки графа');
@@ -133,6 +126,19 @@ function GraphView({ onTermSelect, terms = [] }) {
       }
     }, 100);
   }, [graphData]);
+
+  // Автоматически подгоняем вид после загрузки данных
+  useEffect(() => {
+    if (graphData && !loading && fgRef.current) {
+      // Даем время графу отрендериться
+      const timer = setTimeout(() => {
+        if (fgRef.current) {
+          fgRef.current.zoomToFit(400, 50, (node) => true);
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [graphData, loading]);
 
   // Применяем параметры к графу при их изменении
   useEffect(() => {
